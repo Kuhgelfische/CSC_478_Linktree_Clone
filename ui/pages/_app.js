@@ -2,11 +2,12 @@
 
 // We can include Bootstrap on each page
 import 'bootstrap/dist/css/bootstrap.min.css';
+import LTC_Layout from '../components/layout'
 
-// Override each page
-const MyApp = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <LTC_Layout>
+      <Component {...pageProps} />
+    </LTC_Layout>
+  )
 }
-
-// Export settings
-export default MyApp;
