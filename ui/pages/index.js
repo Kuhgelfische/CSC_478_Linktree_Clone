@@ -15,17 +15,13 @@ const LandingPage = () => {
     <>
 
       {/* Heading */}
-      <h1 className='fs-1 text-center fw-bold'>Linktree Clone</h1>
+      <h1 className='fs-1 text-center fw-bold'>OneLink</h1>
 
       {/* Render our button centered, basic counter */}
       <div className='text-center'>
-        <Link href="/account/createAccount"><a>Create Account</a></Link>
-        <p>Linktree Clone (LTC) allows users to create a profile that shares various links to their social media.</p>
-        <h2>Getting started</h2>
-        <p>TODO: Here are some getting started steps</p>
-        <p>Blah get started here with these steps</p>
-        <p>Blah get started here with these steps</p>
-        <p>Blah get started here with these steps</p>
+        <h2>One Link for All of your Sites!</h2>
+        <p>OneLink allows users to create a profile that shares various links to their social media.</p>
+        <Button>Get Started</Button>
         <h2>Supported features</h2>
         <ListGroup>
           <ListGroup.Item>User profiles</ListGroup.Item>
