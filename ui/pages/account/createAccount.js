@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Button,
   Form
@@ -6,15 +7,13 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 export default function createAccount() {
+  const [message, setMessage] = useState("");
+
   const schema = Yup.object().shape({
     email: Yup.string().email("Email is invalid").required("Email is required"),
     password1: Yup.string().min(8, "Password is too short! (minimum 8 characters)").required("Password is required"),
     password2: Yup.string().required("Confirmation password is required").oneOf([Yup.ref('password1'), null], "Passwords must match")
   });
-
-  const onSubmit = (e) => {
-    alert(JSON.stringify(e.email));
-  }
 
   const formik = useFormik({
     validationSchema: schema,
@@ -24,13 +23,35 @@ export default function createAccount() {
       password2: ''
     },
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+      fetch('http://localhost:8080/accounts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(values)
+      }).then(res => res.json())
+      .then(json => {
+        if (!json.ok) {
+          setMessage(json.msg);
+        } else {
+          setMessage("Successfully created account!");
+        }
+      });
     }
   });
 
   return (
     <>
       <div className="container-sm mx-auto">
+          
+          {
+            message
+            ?
+            <h3 className="text-center mt-2">{message}</h3>
+            :
+            <div/>
+          }
+
           <Form onSubmit={formik.handleSubmit}>
             <Form.Group className="mb-3" controlId="formEmail">
               <Form.Label>Email address</Form.Label>
