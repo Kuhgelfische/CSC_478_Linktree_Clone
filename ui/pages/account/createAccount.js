@@ -23,7 +23,7 @@ export default function createAccount() {
       password2: ''
     },
     onSubmit: values => {
-      fetch('http://localhost:8080/accounts', {
+      fetch('http://localhost:8080/accounts/createAcct', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
