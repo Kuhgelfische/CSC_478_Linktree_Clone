@@ -113,17 +113,4 @@ export default function customizeprofile(){
     }
    
  
-    function color_change (color_name){
-                 
-              
-        document.body.style.backgroundColor = color_name;  
-
-     
-
-
-     
-}     
-
-
-
-    
+  
