@@ -4,11 +4,13 @@ import {
   Button,
   Form
 } from 'react-bootstrap';
+import { useRouter } from 'next/router';
 import * as Yup from 'yup'
 
 export default function login() {
-
   const [message, setMessage] = useState("");
+  const router = useRouter();
+
   const schema = Yup.object().shape({
     email: Yup.string().email("Email is invalid").required("Email is required"),
     password: Yup.string().required("Password is required")
@@ -31,7 +33,8 @@ export default function login() {
         if (!json.ok) {
           setMessage(json.msg);
         } else {
-          setMessage("Successfully logged in!");
+          window.localStorage.setItem('_session', json.data['token']);
+          window.location.href = '/';
         }
       });
     }
@@ -43,11 +46,8 @@ export default function login() {
       <div className="container-sm mx-auto">
           
           {
-            message
-            ?
+            message &&
             <h3 className="text-center mt-2">{message}</h3>
-            :
-            <div/>
           }
 
           <Form onSubmit={formik.handleSubmit}>
