@@ -35,6 +35,7 @@ export default function createAccount() {
           setMessage(json.msg);
         } else {
           setMessage("Successfully created account!");
+          window.location.href = '/account/login';
         }
       });
     }
