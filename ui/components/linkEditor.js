@@ -7,16 +7,17 @@ import {
   Col
 } from 'react-bootstrap';
 
-export default function LTC_LinkEditor({ link, onSave }) {
+export default function LTC_LinkEditor({ link, onChange }) {
   const formik = useFormik({
     initialValues: {
       title: link['title'],
       url: link['url']
     },
-    onSubmit: values => {
-      onSave(values)
-    }
   });
+
+  function passUp() {
+    onChange(formik.values);
+  }
 
   return (
     <div className="w-50 mx-auto mb-2 mt-3">
@@ -30,7 +31,9 @@ export default function LTC_LinkEditor({ link, onSave }) {
                   type="text"
                   value={formik.values.title}
                   onChange={formik.handleChange}
+                  onBlur={passUp}
                   placeholder="Link Title"
+                  name="title"
                 />
               </Form.Group>
             </Col>
@@ -41,7 +44,9 @@ export default function LTC_LinkEditor({ link, onSave }) {
                   type="text"
                   value={formik.values.url}
                   onChange={formik.handleChange}
+                  onBlur={passUp}
                   placeholder="https://example.com"
+                  name="url"
                 />
               </Form.Group>
             </Col>
