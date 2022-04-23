@@ -4,10 +4,11 @@ import {
   Container,
   Form,
   Row,
-  Col
+  Col,
+  Button,
 } from 'react-bootstrap';
 
-export default function LTC_LinkEditor({ link, onChange }) {
+export default function LTC_LinkEditor({ link, onChange, onDelete }) {
   const formik = useFormik({
     initialValues: {
       title: link['title'],
@@ -37,7 +38,7 @@ export default function LTC_LinkEditor({ link, onChange }) {
                 />
               </Form.Group>
             </Col>
-            <Col xs={8}>
+            <Col xs={7}>
               <Form.Group>
                 <Form.Label className="mb-0">URL</Form.Label>
                 <Form.Control
@@ -49,6 +50,9 @@ export default function LTC_LinkEditor({ link, onChange }) {
                   name="url"
                 />
               </Form.Group>
+            </Col>
+            <Col xs={1} className="d-flex align-items-end">
+              <Button variant="danger" onClick={onDelete}>&times;</Button>
             </Col>
           </Row>
         </Container>

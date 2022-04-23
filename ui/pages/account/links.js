@@ -30,9 +30,7 @@ export default function links() {
   const saveCounter = useRef(0);
   useEffect(() => {
     saveCounter.current += 1;
-    console.log("saveCounter: " + saveCounter.current)
     if (saveCounter.current > 2) {
-      console.log(links);
       fetch('http://localhost:8080/session/links', {
         method: 'PUT',
         headers: {
@@ -44,13 +42,30 @@ export default function links() {
     }
   }, [links]);
 
+  function addLink()
+  {
+    fetch('http://localhost:8080/session/links', {
+      method: 'POST',
+      headers: {
+        'x-session': session['token'],
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        const arr = [...links];
+        arr.push(json['link']);
+        setLinks(arr);
+      })
+      .catch(err => console.error(err));
+  }
+
   function updateLink(id, values)
   {
     // We have to do some funky stuff with arrays so the useEffect fires
     const arr = [...links];
     for (var i in arr) {
       let inst = arr[i];
-      console.log(id)
       if (inst.id === id) {
         inst['title'] = values['title'];
         inst['url'] = values['url'];
@@ -63,7 +78,14 @@ export default function links() {
   // Delete locally and also save state to API 
   function deleteLink(id)
   {
-
+    const arr = [...links];
+    for (var i in arr) {
+      if (arr[i]['id'] === id) {
+        arr.splice(i, 1);
+        break;
+      }
+    }
+    setLinks(arr);  // NOTE: this will trigger an API save with the useEffect above
   }
 
   return (
@@ -79,6 +101,7 @@ export default function links() {
                 key={link.id}
                 link={link}
                 onChange={(values) => updateLink(link.id, values)}
+                onDelete={() => deleteLink(link.id)}
               />
             )
           }
@@ -86,7 +109,7 @@ export default function links() {
       }
 
       <div className="text-center">
-        <Button className="mb-2 mt-2">Add Link</Button>
+        <Button className="mb-2 mt-2" onClick={addLink}>Add Link</Button>
       </div>
     </div>
   )

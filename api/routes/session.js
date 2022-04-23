@@ -89,6 +89,46 @@ router.put('/links', (req, res) => {
     ok: false,
     msg: "Invalid token"
   })
+});
+
+router.post('/links', (req, res) => {
+  const token = req.header('x-session');
+  if (!token) {
+    res.status(400).json({
+      ok: false,
+      msg: "Request did not contain session token"
+    })
+    return;
+  }
+
+  // Find account
+  const decoded = jwt.verify(token, 'secretvalue');
+  let account = null;
+  for (var i in accountStore) {
+    const acct = accountStore[i];
+    if (acct['email'] === decoded['username']) {
+      account = acct;
+    }
+  }
+
+  // Generate ID for new link
+  let newId = 0;
+  for (var i in account['links']) {
+    const lnk = account['links'][i];
+    if (lnk['id'] > newId)
+      newId = lnk['id'];
+  }
+  newId++;
+
+  // Add link to store
+  const newLink = { id: newId, title: "", url: "" };
+  account['links'].push(newLink);
+
+  // Return link object to frontend
+  res.json({
+    ok: true,
+    link: newLink
+  })
 })
 
 module.exports = router;
