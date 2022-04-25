@@ -10,6 +10,7 @@ export default function createAccount() {
   const [message, setMessage] = useState("");
 
   const schema = Yup.object().shape({
+    username: Yup.string().min(2, "Username is too short").max(12, "Username can only be up to 12 characters").matches("^[a-zA-Z0-9_.-]*$", "Username contains invalid characters").required("A Username is required"),
     email: Yup.string().email("Email is invalid").required("Email is required"),
     password1: Yup.string().min(8, "Password is too short! (minimum 8 characters)").required("Password is required"),
     password2: Yup.string().required("Confirmation password is required").oneOf([Yup.ref('password1'), null], "Passwords must match")
@@ -18,6 +19,7 @@ export default function createAccount() {
   const formik = useFormik({
     validationSchema: schema,
     initialValues: {
+      username: '',
       email: '',
       password1: '',
       password2: ''
@@ -35,6 +37,7 @@ export default function createAccount() {
           setMessage(json.msg);
         } else {
           setMessage("Successfully created account!");
+          window.location.href = '/account/login';
         }
       });
     }
@@ -53,6 +56,22 @@ export default function createAccount() {
           }
 
           <Form onSubmit={formik.handleSubmit}>
+          <Form.Group className="mb-3" controlId="formUsername">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="username"
+                name="username"
+                value={formik.values.username}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                isValid={formik.touched.username && !formik.errors.username}
+                isInvalid={formik.touched.username && !!formik.errors.username}
+                placeholder="patrick500"
+              />
+              <Form.Control.Feedback type="invalid">
+                {formik.errors.username}
+              </Form.Control.Feedback>
+            </Form.Group>
             <Form.Group className="mb-3" controlId="formEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control

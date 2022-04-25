@@ -12,13 +12,13 @@ export default function login() {
   const router = useRouter();
 
   const schema = Yup.object().shape({
-    email: Yup.string().email("Email is invalid").required("Email is required"),
+    username: Yup.string().required("Username is required"),
     password: Yup.string().required("Password is required")
   })
   const formik = useFormik({
     validationSchema: schema,
     initialValues: {
-      email: '',
+      username: '',
       password: ''
     },
     onSubmit: values => {
@@ -40,7 +40,6 @@ export default function login() {
     }
   });
 
-
   return (
     <>
       <div className="container-sm mx-auto">
@@ -51,20 +50,20 @@ export default function login() {
           }
 
           <Form onSubmit={formik.handleSubmit}>
-            <Form.Group className="mb-3" controlId="formEmail">
-              <Form.Label>Email address</Form.Label>
+            <Form.Group className="mb-3" controlId="formUsername">
+              <Form.Label>Username</Form.Label>
               <Form.Control
-                type="email"
-                name="email"
-                value={formik.values.email}
+                type="username"
+                name="username"
+                value={formik.values.username}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                isValid={formik.touched.email && !formik.errors.email}
-                isInvalid={formik.touched.email && !!formik.errors.email}
-                placeholder="hpotter@hogwarts.com"
+                isValid={formik.touched.username && !formik.errors.username}
+                isInvalid={formik.touched.username && !!formik.errors.username}
+                placeholder="superman5"
               />
               <Form.Control.Feedback type="invalid">
-                {formik.errors.email}
+                {formik.errors.username}
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="password">
