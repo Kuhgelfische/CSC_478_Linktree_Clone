@@ -6,12 +6,14 @@ module.exports = [
     links: [
       { id: 1, title: 'Some Link', url: '#' },
       { id: 2, title: 'Another Link', url: '#' },
-    ]
+    ],
+    bio: "This is my bio!"
   },
   {
     username: "dorki",
     email: 'clay@example.com',
     password: '$2a$05$Z4fqCe2ukMl1RHuOKnZzMOJQeB8GdAK/RgWygRVwi6EFomNAm.E02',
-    links: []
+    links: [],
+    bio: ""
   }
 ]

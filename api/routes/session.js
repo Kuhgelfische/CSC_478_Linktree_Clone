@@ -45,7 +45,7 @@ router.get('/links', (req, res) => {
   // TODO: provide an interface for the store
   for (var i in accountStore) {
     const acct = accountStore[i];
-    if (acct['email'] === decoded['username']) {
+    if (acct['username'] === decoded['username']) {
       res.json({
         links: acct['links']
       });
@@ -76,7 +76,7 @@ router.put('/links', (req, res) => {
   // TODO: provide an interface for the store
   for (var i in accountStore) {
     const acct = accountStore[i];
-    if (acct['email'] === decoded['username']) {
+    if (acct['username'] === decoded['username']) {
       accountStore[i]['links'] = links;
       res.json({
         ok: true
@@ -106,7 +106,7 @@ router.post('/links', (req, res) => {
   let account = null;
   for (var i in accountStore) {
     const acct = accountStore[i];
-    if (acct['email'] === decoded['username']) {
+    if (acct['username'] === decoded['username']) {
       account = acct;
     }
   }
@@ -130,5 +130,69 @@ router.post('/links', (req, res) => {
     link: newLink
   })
 })
+
+router.get('/profile', (req, res) => {
+  const token = req.header('x-session');
+  if (!token) {
+    res.status(400).json({
+      ok: false,
+      msg: "Request did not contain session token"
+    })
+    return;
+  }
+
+  const decoded = jwt.verify(token, 'secretvalue');
+
+  // TODO: provide an interface for the store
+  for (var i in accountStore) {
+    const acct = accountStore[i];
+    if (acct['username'] === decoded['username']) {
+      res.json({
+        ok: true,
+        data: {
+          bio: acct['bio']
+        }
+      });
+      return;
+    }
+  }
+
+  res.status(400).json({
+    ok: false,
+    msg: "Invalid token"
+  })
+});
+
+router.put('/profile', (req, res) => {
+  const bio = req.body['bio'];
+
+  const token = req.header('x-session');
+  if (!token) {
+    res.status(400).json({
+      ok: false,
+      msg: "Request did not contain session token"
+    })
+    return;
+  }
+
+  const decoded = jwt.verify(token, 'secretvalue');
+
+  // TODO: provide an interface for the store
+  for (var i in accountStore) {
+    const acct = accountStore[i];
+    if (acct['username'] === decoded['username']) {
+      accountStore[i]['bio'] = bio;
+      res.json({
+        ok: true
+      });
+      return;
+    }
+  }
+
+  res.status(400).json({
+    ok: false,
+    msg: "Invalid token"
+  })
+});
 
 module.exports = router;
