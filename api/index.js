@@ -17,5 +17,6 @@ app.get('/', (req, res) => {
 
 app.use('/accounts', require('./routes/accounts'));
 app.use('/session', require('./routes/session'));
+app.use('/profiles', require('./routes/profile'));
 
 app.listen(PORT, _ => console.log(`API listening on port ${PORT}`));
