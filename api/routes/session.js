@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
   res.json({
     ok: true,
     session: {
-      email: decoded['username']
+      username: decoded['username'],
     }
   })
 });

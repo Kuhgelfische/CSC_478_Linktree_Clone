@@ -21,7 +21,9 @@ export default function LTC_Navbar() {
               session
               ?
               <Nav>
-                <p className="align-self-center mb-0 me-3">Hi, {session.email}</p>
+                <p className="align-self-center mb-0 me-3">Hi, {session.username}</p>
+                <Link href={`/${session.username}`} passHref><Nav.Link>Profile</Nav.Link></Link>
+                <Link href="/account/manage" passHref><Nav.Link>Manage</Nav.Link></Link>
                 <Link href="/account/logout" passHref><Nav.Link>Log Out</Nav.Link></Link>
               </Nav>
               :
