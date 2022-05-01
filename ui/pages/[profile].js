@@ -1,5 +1,20 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic'
+import styled from "styled-components";
+
+const UserBackground = dynamic(() => import("../components/UserBackground.tsx"), {
+  ssr: false
+})
+const UserWrapper = styled.div`
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+`
 
 export default function Profile() {
   const router = useRouter();
@@ -38,23 +53,28 @@ export default function Profile() {
   }
 
   return (
-    <div className='text-center mt-2 w-50 mx-auto'>
-      <h2>{profile}</h2>
-      <p>{bio}</p>
-      <div class="d-flex flex-column px-2">
-        {
-          links.map(link => (
-            <a
-              className='w-100 mb-3 p-3 bg-secondary bg-gradient d-inline-block text-white text-decoration-none'
-              key={link.id}
-              href={link.url}
-              target="_blank"
-            >
-              <h3 className='m-0'>{link.title}</h3>
-            </a>
-          ))
-        }
+    <>
+    <UserWrapper>
+      <div className='text-center mt-2 w-50 mx-auto'>
+        <h2>{profile}</h2>
+        <p>{bio}</p>
+        <div class="d-flex flex-column px-2">
+          {
+            links.map(link => (
+              <a
+                className='w-100 mb-3 p-3 bg-secondary bg-gradient d-inline-block text-white text-decoration-none'
+                key={link.id}
+                href={link.url}
+                target="_blank"
+              >
+                <h3 className='m-0'>{link.title}</h3>
+              </a>
+            ))
+          }
+        </div>
       </div>
-    </div>
+    </UserWrapper>
+    <UserBackground/>
+    </>
   )
 }
