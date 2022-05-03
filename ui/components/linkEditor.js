@@ -27,7 +27,7 @@ export default function LTC_LinkEditor({ link, onChange, onDelete }) {
           <Row>
             <Col>
               <Form.Group>
-                <Form.Label className="mb-0">Title</Form.Label>
+                <Form.Label className="mb-0" htmlFor="title">Title</Form.Label>
                 <Form.Control
                   type="text"
                   value={formik.values.title}
@@ -35,12 +35,14 @@ export default function LTC_LinkEditor({ link, onChange, onDelete }) {
                   onBlur={passUp}
                   placeholder="Link Title"
                   name="title"
+                  id="title"
+                  aria-label='title-input'
                 />
               </Form.Group>
             </Col>
             <Col xs={7}>
               <Form.Group>
-                <Form.Label className="mb-0">URL</Form.Label>
+                <Form.Label className="mb-0" htmlFor="url">URL</Form.Label>
                 <Form.Control
                   type="text"
                   value={formik.values.url}
@@ -48,6 +50,8 @@ export default function LTC_LinkEditor({ link, onChange, onDelete }) {
                   onBlur={passUp}
                   placeholder="https://example.com"
                   name="url"
+                  id="url"
+                  aria-label='url-input'
                 />
               </Form.Group>
             </Col>
