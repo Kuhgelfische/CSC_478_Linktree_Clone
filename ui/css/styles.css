@@ -1,0 +1,6 @@
+div.backdrop {
+  margin: 30px;
+  background-color: rgba(255, 255, 255, .9);
+  border: 1px solid rgba(0, 0, 0, .5);
+  opacity: .9;
+}

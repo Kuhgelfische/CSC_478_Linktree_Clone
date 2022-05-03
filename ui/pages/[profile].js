@@ -55,7 +55,7 @@ export default function Profile() {
   return (
     <>
     <UserWrapper>
-      <div className='text-center mt-2 w-50 mx-auto'>
+      <div className='text-center mt-2 w-50 mx-auto backdrop'>
         <h2>{profile}</h2>
         <p>{bio}</p>
         <div class="d-flex flex-column px-2">
@@ -71,7 +71,7 @@ export default function Profile() {
               </a>
             ))
           }
-        </div>
+      </div>
       </div>
     </UserWrapper>
     <UserBackground/>
