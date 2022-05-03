@@ -4,6 +4,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LTC_Layout from '../components/layout'
 import { useSession } from '../hooks/session'
+import '../css/styles.css';
 
 export default function MyApp({ Component, pageProps }) {
   return (
