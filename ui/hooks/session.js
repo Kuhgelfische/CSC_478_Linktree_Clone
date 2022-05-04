@@ -6,8 +6,6 @@ export default function useSession() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const token = window.localStorage.getItem('_session');
-      if (!token)
-        return;
       
       fetch('http://localhost:8080/session', {
         headers: {
@@ -15,8 +13,10 @@ export default function useSession() {
         }
       })
       .then(res => res.json())
-      .then(json => setData({ ...json.session, token }))
-      .catch(() => {return});
+      .then(json => {
+        setData({ ...json.session, token })
+      })
+      .catch((err) => {return;});
     }
   }, []);
 
