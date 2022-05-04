@@ -40,7 +40,8 @@ router.post('/createAcct', (req, res) => {
     email: eMail,
     password: bcrypt.hashSync(password1, 5),
     links: [],
-    bio: ""
+    bio: "",
+    bg: null
   });
 
   console.log(accountStore);

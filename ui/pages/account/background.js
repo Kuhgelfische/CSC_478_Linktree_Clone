@@ -21,14 +21,16 @@ export default function background() {
   const uploadToServer = e => {
     const body = new FormData();
     body.append('background', image);
-    fetch("http://localhost:8080/upload", {
+    console.log(body)
+    fetch("http://localhost:8080/upload/background", {
       method: "POST",
       headers: {
         'x-session': session['token'],
-        'Content-Type': 'application/json'
       },
       body
-    });
+    }).then(res => res.json())
+      .then(json => console.log(json))
+      .catch(err => console.error(err));
   };
   return (
     <div className="text-center mt-2 w-50 mx-auto">
