@@ -34,7 +34,7 @@ export default function login() {
           setMessage(json.msg);
         } else {
           window.localStorage.setItem('_session', json.data['token']);
-          window.location.href = '/';
+          window.location.href = '/account/manage';
         }
       });
     }
