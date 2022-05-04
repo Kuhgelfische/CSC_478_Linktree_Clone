@@ -15,5 +15,12 @@ module.exports = [
     password: '$2a$05$Z4fqCe2ukMl1RHuOKnZzMOJQeB8GdAK/RgWygRVwi6EFomNAm.E02',
     links: [],
     bio: ""
+  },
+  {
+    username: 'tim',
+    email: 'tim@yahoo.com',
+    password: '$2b$05$t/mu4ogXj5BQJRYFndUxweo0QxVtaCG/5VyIx9Xku.0bxY8IvX.JO',
+    links: [],
+    bio: ''
   }
 ]

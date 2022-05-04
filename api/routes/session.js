@@ -195,4 +195,79 @@ router.put('/profile', (req, res) => {
   })
 });
 
+router.get('/background', (req, res) => {
+  const token = req.header('x-session');
+  if (!token) {
+    res.status(400).json({
+      ok: false,
+      msg: "Request did not contain session token"
+    })
+    return;
+  }
+
+  const decoded = jwt.verify(token, 'secretvalue');
+
+  for (var i in accountStore) {
+    const acct = accountStore[i];
+    if (acct['username'] === decoded['username']) {
+      res.json({
+        ok: true,
+        data: {
+          background: acct['background']
+        }
+      });
+      return;
+    }
+  }
+
+  res.status(400).json({
+    ok: false,
+    msg: "Invalid token"
+  })
+})
+router.post('/background', async (req, res) => {
+  const data = await new Promise((resolve, reject) => {
+    const form = new IncomingForm()
+    
+     form.parse(req, (err, fields, files) => {
+         if (err) return reject(err)
+         console.log(fields, files)
+         console.log(files.file.filepath)
+         var oldPath = files.file.filepath;
+         var newPath = `./public/uploads/${files.file.originalFilename}`;
+         mv(oldPath, newPath, function(err) {
+         });
+         res.status(200).json({ fields, files })
+     })
+ })
+})
+router.put('/background', (req, res) => {
+  const mv = require('mv');
+  const token = req.header('x-session');
+  if (!token) {
+    res.status(400).json({
+      ok: false,
+      msg: "Request did not contain session token"
+    })
+    return;
+  }
+  const decoded = jwt.verify(token, 'secretvalue');
+  for (var i in accountStore) {
+    const acct = accountStore[i];
+    if (acct['username'] === decoded['username']) {
+      const dst = `/../../ui/public/${acct['username']}_background.jpg`
+      mv(newImg, dst);
+      accountStore[i]['background'] = background;
+      res.json({
+        ok: true
+      });
+      return;
+    }
+  }
+  res.status(400).json({
+    ok: false,
+    msg: "Invalid token"
+  })
+})
+
 module.exports = router;
