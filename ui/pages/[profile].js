@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import LTC_Link from '../components/link';
 
 export default function Profile() {
   const router = useRouter();
@@ -7,6 +8,7 @@ export default function Profile() {
 
   const [links, setLinks] = useState([]);
   const [bio, setBio] = useState("");
+  const [color, setColor] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -20,6 +22,7 @@ export default function Profile() {
         if (json['ok']) {
           setLinks(json['data']['links']);
           setBio(json['data']['bio']);
+          setColor(json['data']['linkColor']);
           setLoading(false);
         } else {
           setError(json['msg'])
@@ -41,17 +44,13 @@ export default function Profile() {
     <div className='text-center mt-2 w-50 mx-auto'>
       <h2>{profile}</h2>
       <p>{bio}</p>
-      <div class="d-flex flex-column px-2">
+      <div className="d-flex flex-column px-2">
         {
           links.map(link => (
-            <a
-              className='w-100 mb-3 p-3 bg-secondary bg-gradient d-inline-block text-white text-decoration-none'
-              key={link.id}
-              href={link.url}
-              target="_blank"
-            >
-              <h3 className='m-0'>{link.title}</h3>
-            </a>
+            <div key={link.id}>
+              <LTC_Link title={link.title} url={link.url} color={color} />
+              <div style={{ height: '1rem' }} />
+            </div>
           ))
         }
       </div>

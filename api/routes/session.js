@@ -150,7 +150,8 @@ router.get('/profile', (req, res) => {
       res.json({
         ok: true,
         data: {
-          bio: acct['bio']
+          bio: acct['bio'],
+          linkColor: acct['linkColor']
         }
       });
       return;
@@ -165,6 +166,7 @@ router.get('/profile', (req, res) => {
 
 router.put('/profile', (req, res) => {
   const bio = req.body['bio'];
+  const linkColor = req.body['linkColor'];
 
   const token = req.header('x-session');
   if (!token) {
@@ -182,6 +184,7 @@ router.put('/profile', (req, res) => {
     const acct = accountStore[i];
     if (acct['username'] === decoded['username']) {
       accountStore[i]['bio'] = bio;
+      accountStore[i]['linkColor'] = linkColor;
       res.json({
         ok: true
       });
