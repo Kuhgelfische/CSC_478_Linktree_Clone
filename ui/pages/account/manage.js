@@ -2,10 +2,14 @@ import { useEffect, useState } from 'react';
 import {
   Button,
   Form,
-  Toast
+  Toast,
+  Row,
+  Col,
+  Container
 } from 'react-bootstrap';
 import useSession from '../../hooks/session';
 import { useFormik } from 'formik';
+import LTC_Link from '../../components/link';
 
 export default function manageAccount() {
   const session = useSession();
@@ -58,6 +62,7 @@ export default function manageAccount() {
   const formik = useFormik({
     initialValues: {
       bio: "",
+      linkColor: "secondary"
     },
     enableReinitialize: true
   });
@@ -80,6 +85,30 @@ export default function manageAccount() {
             onChange={formik.handleChange}
             placeholder="Here's a little something about myself..."
           />
+        </Form.Group>
+
+        <Form.Group className='w-50 mt-3 mx-auto'>
+          <Form.Label className='mb-0'>Link Color</Form.Label>
+          <Container>
+            <Row className='d-flex align-items-center'>
+              <Col>
+                <Form.Select
+                  value={formik.values.linkColor}
+                  onChange={formik.handleChange}
+                  name="linkColor"
+                >
+                  <option value="secondary">Default</option>
+                  <option value="primary">Blue</option>
+                  <option value="success">Green</option>
+                  <option value="danger">Red</option>
+                  <option value="dark">Black</option>
+                </Form.Select>
+              </Col>
+              <Col>
+                <LTC_Link title="Example" url="#" color={formik.values.linkColor} />
+              </Col>
+            </Row>
+          </Container>
         </Form.Group>
 
         <div className='text-center mt-3'>
