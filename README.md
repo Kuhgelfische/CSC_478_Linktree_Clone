@@ -24,5 +24,9 @@ $ npm run dev
 ```
 
 The UI will start the front-end on `http://localhost:3000` and the API will start the backend on `http://localhost:8080`.
-The API as of _this_ moment is not needed, but I set it up so that we have it ready to go, and we can test
-that it's working.
+
+## Known Issues
+
+Data does not persist between the application going down and then back up. There is no easy way to set up a database
+on an end-user machine. This application would ideally be deployed to a website where the database management is set up
+for every end-user.
