@@ -69,6 +69,10 @@ export default function manageAccount() {
         <div className='text-center mt-3'>
           <Button as="a" href="/account/links">Edit Links</Button>
         </div>
+
+        <div className='text-center mt-3'>
+          <Button as="a" href="/account/background">Edit Background</Button>
+        </div>
         
         <Form.Group className='w-50 mt-3 mx-auto'>
           <Form.Label className="mb-0">Bio</Form.Label>

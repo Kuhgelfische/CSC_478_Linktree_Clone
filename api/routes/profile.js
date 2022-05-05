@@ -13,7 +13,8 @@ router.get('/:username', (req, res) => {
         ok: true,
         data: {
           links: acct['links'],
-          bio: acct['bio']
+          bio: acct['bio'],
+          bg: acct['bg']
         }
       });
       return;

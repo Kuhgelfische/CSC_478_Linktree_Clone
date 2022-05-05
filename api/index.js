@@ -1,3 +1,4 @@
+const path = require('path');
 const cors = require('cors');
 const express = require('express');
 const app = express();
@@ -14,9 +15,13 @@ app.get('/', (req, res) => {
     status: 'ok'
   });
 });
+app.use(express.json({}));
 
 app.use('/accounts', require('./routes/accounts'));
 app.use('/session', require('./routes/session'));
 app.use('/profiles', require('./routes/profile'));
+app.use('/upload', require('./routes/upload'));
+
+app.use(express.static(path.join(__dirname, 'uploads')))
 
 app.listen(PORT, _ => console.log(`API listening on port ${PORT}`));
