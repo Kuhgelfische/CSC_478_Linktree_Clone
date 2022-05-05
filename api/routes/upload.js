@@ -4,6 +4,7 @@ const fileUpload = require('express-fileupload');
 const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
 
 const accountStore = require('../store/accounts');
 
@@ -37,14 +38,20 @@ router.post('/background', (req, res) => {
   }
 
   // Save file
+  const username = jwt.verify(req.header('x-session'), 'secretvalue')['username'];
   const filename = `${randomString()}.jpg`;
-  background.mv(path.join(__dirname, '..', 'uploads', filename));
+  const fPath = (path.join(__dirname, '..', '..', 'ui', 'public', 'backgrounds'));
+  background.mv(path.join(fPath, filename));
   
   // Save the filename to the account
-  const username = jwt.verify(req.header('x-session'), 'secretvalue')['username'];
   let myaccount;
-  for (var acct of accountStore) {
+  for (var i in accountStore) {
+    const acct = accountStore[i];
     if (acct['username'] === username) {
+      if(acct.bg && fs.existsSync(path.join(fPath, acct.bg))) {
+        fs.unlinkSync(path.join(fPath, acct.bg));
+      }
+      accountStore[i]['bg'] = filename;
       acct.bg = filename;
       myaccount = acct;
       break;

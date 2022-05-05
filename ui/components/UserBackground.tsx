@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
+import { join } from 'path';
 
 const Box = styled.div`
   position: fixed;
@@ -14,7 +15,7 @@ function getWindowDimensions() {
     height
   };
 }
-function UserBackground() {
+function UserBackground({bg}) {
   const [width, setWidth] = useState<number>();
   const [height, setHeight] = useState<number>();
 
@@ -33,12 +34,14 @@ function UserBackground() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  const userI = '/../public/backgrounds/win_xp.jpg';
+
+  const background = bg ? `/../public/backgrounds/${bg}` : '/../public/backgrounds/USERPLAINWHITE.jpg';
+
   if(width && height) {
     return (
       <Box>
       <Image
-        src={userI}
+        src={background}
         width={width}
         height={height}
       />

@@ -24,6 +24,7 @@ export default function Profile() {
   const [bio, setBio] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [bg, setBg] = useState();
 
   useEffect(() => {
     if (!profile)
@@ -35,6 +36,7 @@ export default function Profile() {
         if (json['ok']) {
           setLinks(json['data']['links']);
           setBio(json['data']['bio']);
+          setBg(json['data']['bg']);
           setLoading(false);
         } else {
           setError(json['msg'])
@@ -58,7 +60,7 @@ export default function Profile() {
       <div className='text-center mt-2 w-50 mx-auto backdrop'>
         <h2>{profile}</h2>
         <p>{bio}</p>
-        <div class="d-flex flex-column px-2">
+        <div className="d-flex flex-column px-2">
           {
             links.map(link => (
               <a
@@ -74,7 +76,7 @@ export default function Profile() {
       </div>
       </div>
     </UserWrapper>
-    <UserBackground/>
+    <UserBackground bg={bg}/>
     </>
   )
 }
