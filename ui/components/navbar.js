@@ -9,7 +9,7 @@ export default function LTC_Navbar() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand><Link href="/" passHref><Nav.Link>Link Tree Clone</Nav.Link></Link></Navbar.Brand>
+        <Navbar.Brand><Link href="/" passHref><Nav.Link>OneLink</Nav.Link></Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
