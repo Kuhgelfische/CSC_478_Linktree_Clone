@@ -10,7 +10,7 @@ describe('Navbar', () => {
   });
 
   it('renders a navbar', () => {
-    const title = screen.getByText('Link Tree Clone');
+    const title = screen.getByText('OneLink');
     expect(title).toBeInTheDocument();
   });
 
