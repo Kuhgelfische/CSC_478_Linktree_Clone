@@ -7,6 +7,8 @@ import {
 import { useRouter } from 'next/router';
 import * as Yup from 'yup'
 
+
+
 export default function login() {
   const [message, setMessage] = useState("");
   const router = useRouter();
@@ -33,6 +35,11 @@ export default function login() {
         if (!json.ok) {
           setMessage(json.msg);
         } else {
+        /**
+         * Requirement 1.4
+         * Users should be able to log in with their credentials
+         * and be directed to their account management
+         */
           window.localStorage.setItem('_session', json.data['token']);
           window.location.href = '/account/manage';
         }

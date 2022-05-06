@@ -91,6 +91,11 @@ router.put('/links', (req, res) => {
   })
 });
 
+/**
+ * Requirement 2.2, 2.3
+ * User should add (and delete) as many links as they want
+ * (This function just updates links as they are sent)
+ */
 router.post('/links', (req, res) => {
   const token = req.header('x-session');
   if (!token) {
@@ -163,6 +168,10 @@ router.get('/profile', (req, res) => {
   })
 });
 
+/**
+ * Requirement 1.5
+ * User can edit profile from management screen
+ */
 router.put('/profile', (req, res) => {
   const bio = req.body['bio'];
 
@@ -181,6 +190,10 @@ router.put('/profile', (req, res) => {
   for (var i in accountStore) {
     const acct = accountStore[i];
     if (acct['username'] === decoded['username']) {
+      /**
+       * Requirement 3.2
+       * User can set a custom bio
+       */
       accountStore[i]['bio'] = bio;
       res.json({
         ok: true
@@ -225,6 +238,11 @@ router.get('/background', (req, res) => {
     msg: "Invalid token"
   })
 })
+
+/**
+ * Requirements 3.1
+ * User can set landing page background
+ */
 router.post('/background', async (req, res) => {
   const data = await new Promise((resolve, reject) => {
     const form = new IncomingForm()

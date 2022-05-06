@@ -62,6 +62,10 @@ export default function Profile() {
         <p>{bio}</p>
         <div className="d-flex flex-column px-2">
           {
+            /**
+             * Requirement 2.5
+             * Links will display with a pre-defined neutral color
+             */
             links.map(link => (
               <a
                 className='w-100 mb-3 p-3 bg-secondary bg-gradient d-inline-block text-white text-decoration-none'

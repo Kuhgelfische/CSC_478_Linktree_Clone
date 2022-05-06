@@ -8,6 +8,10 @@ const accountStore = require('../store/accounts');
 // Allow JSON payloads from our frontend
 router.use(express.json({}));
 
+/**
+ * Requirement 1.1
+ * User should be allowed to create an account
+ */
 router.post('/createAcct', (req, res) => {
   // Pull out the payload fields
   const { username, email, password1, password2 } = req.body;
@@ -23,8 +27,9 @@ router.post('/createAcct', (req, res) => {
     res.status(401).json({ ok: false, msg: "Passwords do not match" });
     return;
   }
+
   // Usernames and emails will be lowercase from here on out.
-  var userN = username.toLowerCase();
+  var userN = username.toLowerCase(); // Requirement 1.2
   var eMail = email.toLowerCase();
   for(var i of accountStore) {
     if(i.username === userN) {
@@ -52,6 +57,10 @@ router.post('/createAcct', (req, res) => {
 
 });
 
+/**
+ * Requirement 1.4
+ * User should be able to log in with their credentials
+ */
 router.post('/login', (req, res) => {
   const {username, password} = req.body;
 

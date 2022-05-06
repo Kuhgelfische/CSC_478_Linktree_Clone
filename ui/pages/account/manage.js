@@ -7,6 +7,11 @@ import {
 import useSession from '../../hooks/session';
 import { useFormik } from 'formik';
 
+/**
+ * Requirement 1.5
+ * User can edit profile from management screen
+ */
+
 export default function manageAccount() {
   const session = useSession();
   const [showToast, setShowToast] = useState(false);
@@ -66,14 +71,26 @@ export default function manageAccount() {
     <div>
       <h2 className="text-center">Manage Account</h2>
       <div>
+        {/* 
+          Requirement 1.6
+          User can follow link to manage links from management screen
+        */}
         <div className='text-center mt-3'>
           <Button as="a" href="/account/links">Edit Links</Button>
         </div>
 
+        {/*
+          Requirement 3.1
+          User can set a landing page background
+        */}
         <div className='text-center mt-3'>
           <Button as="a" href="/account/background">Edit Background</Button>
         </div>
         
+        {/*
+          Requirement 3.2
+          User can set a custom bio
+        */}
         <Form.Group className='w-50 mt-3 mx-auto'>
           <Form.Label className="mb-0">Bio</Form.Label>
           <Form.Control
@@ -86,6 +103,10 @@ export default function manageAccount() {
           />
         </Form.Group>
 
+        {/*
+          Requirement 3.3
+          User can save profile settings by clicking "Save"
+        */}
         <div className='text-center mt-3'>
           <Button variant="success" onClick={saveAll}>Save</Button>
         </div>

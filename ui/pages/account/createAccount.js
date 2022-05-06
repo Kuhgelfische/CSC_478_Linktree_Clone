@@ -6,12 +6,21 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
+/**
+ * Requirement 1.1
+ * User should be allowed to create an account
+ */
+
 export default function createAccount() {
   const [message, setMessage] = useState("");
 
   const schema = Yup.object().shape({
     username: Yup.string().min(2, "Username is too short").max(12, "Username can only be up to 12 characters").matches("^[a-zA-Z0-9_.-]*$", "Username contains invalid characters").required("A Username is required"),
     email: Yup.string().email("Email is invalid").required("Email is required"),
+    /**
+     * Requirement 1.3
+     * Passwords should not have constraints that enforce insecure standards
+     */
     password1: Yup.string().min(8, "Password is too short! (minimum 8 characters)").required("Password is required"),
     password2: Yup.string().required("Confirmation password is required").oneOf([Yup.ref('password1'), null], "Passwords must match")
   });
@@ -56,6 +65,10 @@ export default function createAccount() {
           }
 
           <Form onSubmit={formik.handleSubmit}>
+          {/* 
+            Requirement 1.2
+            User should be allowed to choose a username
+          */}
           <Form.Group className="mb-3" controlId="formUsername">
               <Form.Label>Username</Form.Label>
               <Form.Control

@@ -8,6 +8,11 @@ import {
   Button,
 } from 'react-bootstrap';
 
+/**
+ * Requirement 2.1
+ * The interface should resemble a modular design
+ */
+
 export default function LTC_LinkEditor({ link, onChange, onDelete }) {
   const formik = useFormik({
     initialValues: {
@@ -16,6 +21,10 @@ export default function LTC_LinkEditor({ link, onChange, onDelete }) {
     },
   });
 
+  /**
+   * Requirement 2.4
+   * All links will auto-save after input blur, deletion, and adding links
+   */
   function passUp() {
     onChange(formik.values);
   }
@@ -32,7 +41,7 @@ export default function LTC_LinkEditor({ link, onChange, onDelete }) {
                   type="text"
                   value={formik.values.title}
                   onChange={formik.handleChange}
-                  onBlur={passUp}
+                  onBlur={passUp} // <-- 2.4 onBlur calls passUp which triggers useEffect on the parent
                   placeholder="Link Title"
                   name="title"
                   id="title"
